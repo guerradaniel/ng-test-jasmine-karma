@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import {v4 as uuidv4} from "uuid";
 
 @Injectable()
-export class UniqueId {
+export class UniqueIdService {
 
 	private numberOfGeneratedIds = 0
 
@@ -12,12 +12,12 @@ export class UniqueId {
 
 		const uniqueId = this.generatedUniqueId()
 		this.numberOfGeneratedIds++
-		return `${prefix} - ${uniqueId}`
+		return `${prefix}-${uniqueId}`
 	}
 
 	public getNumberOfGeneratedUniqueIds(): number {
 			return this.numberOfGeneratedIds;
-	}
+	} 
 
 	private generatedUniqueId(): string {
 		return uuidv4()

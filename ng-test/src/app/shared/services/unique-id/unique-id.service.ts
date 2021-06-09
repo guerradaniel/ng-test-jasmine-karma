@@ -6,9 +6,11 @@ export class UniqueIdService {
 
 	private numberOfGeneratedIds = 0
 
+	private validId = /^[A-Za-z]+[\w\-\:\.]*$/ 
+
 	public generatedUniqueIdWithPrefix(prefix: string): string {
 		
-		if(!prefix) throw Error('Prefix can not be empty')
+		if(!prefix || !this.validId.test(prefix)) throw Error('Prefix can not be empty')
 
 		const uniqueId = this.generatedUniqueId()
 		this.numberOfGeneratedIds++

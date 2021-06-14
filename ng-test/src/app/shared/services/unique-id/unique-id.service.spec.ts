@@ -33,7 +33,9 @@ should return the number of generatedIds when called`, () => {
 		should throw when called with empty`, () => {
 			const emptyValues = [null, undefined, '']
 			emptyValues.forEach(value => {
-				expect(() => service.generatedUniqueIdWithPrefix(value)).toThrow();
+				expect(() => service.generatedUniqueIdWithPrefix(value))
+				.withContext(`Empty value: ${value}`)
+				.toThrow();
 			})			
 		})
 })
@@ -80,4 +82,23 @@ should return the number of generatedIds when called`, () => {
  * no próprio método testado. Ao criar um teste que está funcionando e fazer um refactor, 
  * parte desse comportamento que tinha foi quebrada por conta da mudança. O teste é uma 
  * condição fundamental do refactor do código.   
+ * 
+ * No caso de um test que tem como expect vários valores, precisamos de mais precisão em 
+ * saber qual valor não passou. Para funcionar, é necessário passar um conexto para essa 
+ * expectativa com o withContext(). Isso me dá flexibilidade de saber onde está o erro no 
+ * loop.
+ * 
+ * Para testar um método boolean, o Jasmine nos oferece três funções que são muito usadas:
+ * ToBeTrue, ToBe e ToBeTruthy. 
+ * - ToBeTrue(): espera que seja retornado um tipo literal (valor true ou false).
+ * - O ToBe(true): faz a comparação se o expect é literal para uma condição literal, por
+ * 	exemplo. Caso sejam comparados dois objetos do mesmo tipo, o teste ainda falhará pois
+ * 	os dois obejtos estão em endereços de memória diferentes.
+ * - ToBeTruthy(): faz uma expectativa de forma mais genérica. Ou seja, desde que eu passe
+ * 	algo que esteja dentro das regras do js, com excessão de null, '' ou undefined, o teste
+ * 	passará.
+ * 
+ * 
+ * 
+ * 
  */
